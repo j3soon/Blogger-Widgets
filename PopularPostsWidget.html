@@ -1,0 +1,105 @@
+<div class='widget-slimecuty-popular-posts'>
+  <ul id='popular-li-container' style="list-style-type: none; padding: 0">
+    <script type='text/javascript'>
+        function loadXML(url) {
+          var xmlRequest = new XMLHttpRequest();
+          xmlRequest.onreadystatechange = function () {
+            if (xmlRequest.readyState == 4 && xmlRequest.status == 200) {
+              parseResponse(xmlRequest);
+            }
+          };
+          xmlRequest.open("GET", url, true);
+          xmlRequest.send();
+        }
+        function parseResponse(xml) {
+          var txtData = xml.responseText;
+          var parserDiv = document.createElement("div");
+          parserDiv.innerHTML = txtData;
+
+          var posts = parserDiv.getElementsByTagName("entry");
+          for (var i = 0; i < posts.length; i++) {
+            var links = posts[i].getElementsByTagName("link");
+            for (var j = 0; j < links.length; j++) {
+              if (links[j].getAttribute("rel") == "alternate") {
+                makeContainer(i);
+                var title = links[j].getAttribute("title");
+                var link = links[j].getAttribute("href");
+                makeTitle(title, i);
+                makeLink(link, i);
+                var content = posts[i].getElementsByTagName("content");
+                if (content.length == 0) break;
+                var parserContentDiv = document.createElement("div");
+                parserContentDiv.innerHTML = content[0].innerText;
+                var imgs = parserContentDiv.getElementsByTagName("img");
+                if (imgs.length == 0) break;
+                var imgurl = imgs[0].getAttribute("src");
+                makeImage(imgurl, i);
+                break;
+              }
+            }
+          }
+        }
+        function makeContainer(num) {
+          var li = document.createElement("li");
+          li.style.padding = "0";
+          var div = document.createElement("div");
+          var table = document.createElement("table");
+          table.style.width = "100%";
+          var tr = document.createElement("tr");
+          var td1 = document.createElement("td");
+          td1.style.height = "72px";
+          td1.style.verticalAlign = "middle";
+          var td2 = document.createElement("td");
+          td2.style.width = "100%";
+          td2.style.verticalAlign = "middle";
+          var a1 = document.createElement("a");
+          a1.id = "popular-img-" + num;
+          a1.href = "javascript: void(0)";
+          a1.target = "_blank";
+          var a2 = document.createElement("a");
+          a2.id = "popular-title-" + num;
+          a2.href = "javascript: void(0)";
+          a2.target = "_blank";
+          a2.style.fontSize = "15pt";
+          td1.appendChild(a1);
+          td2.appendChild(a2);
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          table.appendChild(tr);
+          div.appendChild(table);
+          li.appendChild(div);
+          document.getElementById("popular-li-container").appendChild(li);
+        }
+        function makeLink(link, num) {
+          document.getElementById("popular-title-" + num).setAttribute("href", link);
+          document.getElementById("popular-img-" + num).setAttribute("href", link);
+        }
+        function makeTitle(title, num) {
+          document.getElementById("popular-title-" + num).innerText = title;
+        }
+        function makeImage(imgurl, num) {
+          var img = document.createElement("img");
+          img.style.border = "1px solid black";
+          img.style.width = "72px";
+          img.style.height = "72px";
+          img.style.backgroundImage = "url('" + imgurl + "')";
+          var image = new Image();
+          image.src = imgurl;
+          if (image.width > image.height)
+            img.style.backgroundSize = "auto 100%";
+          else
+            img.style.backgroundSize = "100% auto";
+          img.style.backgroundPosition = "50% 50%";
+          img.style.backgroundRepeat = "no-repeat"
+          img.style.display = "inline-block";
+          img.style.maxWidth = "none";
+          document.getElementById("popular-img-" + num).appendChild(img);
+        }
+        function getPopularData() {
+          var url = "/feeds/posts/default?orderby=published";
+          loadXML(url);
+        }
+        window.onload = getPopularData;
+    </script>
+  </ul>
+</div>
