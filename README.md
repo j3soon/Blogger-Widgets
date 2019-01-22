@@ -3,7 +3,7 @@ Blogger Widgets
 
 Simple and small widgets for Blogger users.
 
-##Popular Posts Widget
+## Popular Posts Widget
 
 When using external images in a post, the default `Popular Posts Widget` cannot show the first image as thumbnail.
 
@@ -11,7 +11,7 @@ This widget can fix the problem mentioned above.
 
 This widget works well on the default template, displaying the popular posts with its first image and title. If there's no image, it only shows the title.
 
-###How to use
+### How to use
 1. Go to the `Layout page` of your blog.
 2. In the `sidebar-right-1` block, click `Add a Gadget`.
 3. In the `Basics` category, select `HTML/JavaScript`.
@@ -22,7 +22,7 @@ This widget works well on the default template, displaying the popular posts wit
 
 For people who don't know how to add a gadget, please see [Change your blog layout](https://support.google.com/blogger/answer/43708?hl=en).
 
-###Common Problems
+### Common Problems
 
 1. The widget is ugly.
 
@@ -40,7 +40,7 @@ For people who don't know how to add a gadget, please see [Change your blog layo
 
 If there's any other problem, you can contact me for further help.
 
-###Removal
+### Removal
 
 Removing this widget is very simple. 
 
